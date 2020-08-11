@@ -1,5 +1,7 @@
+#!/usr/bin/env python
+# coding: utf-8
 
-
+# code by mswartz2@gmu.edu as of August 2020
 # The attributes are compiled from Unicode emoji data files emoji-test.txt and also manual review
 # Unicode data files: https://unicode.org/Public/emoji/13.0/
 # there may be some emojis that render but are not fully supported by Unicode (e.g. family with skintone)
@@ -237,7 +239,6 @@ def getDictOfEmojiAttributes(emoji_list):
 
 # Get a list of the values for a specific attribute for emojis in a list with that attribute
 # the input is a list of emojis and a string of the attribute name, if a list is passed it only takes the first value
-
 
 def getListOfSingleAttributeValuesForEmojiList(emoji_list, single_attribute):
     if type(single_attribute) == list:
