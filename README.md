@@ -1,5 +1,5 @@
 # emoji_attributes
-Code to get emoji attributes for emojis in a list.
+Pyhton 3 code to get emoji attributes for emojis in a list. Demo provided in both Python and Jupyter notebook.
 
 For example, with this code you can identify the Unicode group, subgroup, shape, color, description, and much more for the emojis in a list.
 The attributes are compiled from Unicode group, subgroup, name and also manual review. The Unicode emoji group and subgroup are compiled from the Emoji Unicode charts: https://unicode.org/emoji/charts/full-emoji-list.html
