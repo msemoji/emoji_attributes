@@ -15,11 +15,16 @@
 # additional resources are: https://emojipedia.org/ and https://unicode.org/emoji/charts/full-emoji-list.html
 
 
+# dependencies
+import ast
+import json
+
+# other code in this repo
+import extractEmojis
 
 
 # LOAD IN EMOJI ATTRIBUTES JSON FILE THAT WAS PREPROCESSED 
 # CREATE DICTIONARY to use as master reference for emoji attributes
-import json
 emoji_w_attributes_dict = dict()
 with open('emoji_all_v13_attributes_w_color_anthro_sentiment_shape_direction.json') as f:
     emoji_w_attributes_dict = json.load(f)
@@ -71,10 +76,13 @@ def getAttributesForSingleEmoji(emoji):
     if emoji in emoji_w_attributes_dict:
         return emoji_w_attributes_dict[emoji]
     else:
-        try:
+        repaired_emoji = extractEmojis.fixDuplicateEmoji(emoji)                
+        if repaired_emoji in emoji_w_attributes_dict:
+            return emoji_w_attributes_dict[repaired_emoji]
+        else:
             return constructAttributesForEmojiNotInRef(emoji)
-        except:
-            return {}
+        #except:
+        #    return {}
 
 
 # Helper function to construct emoji attributes for the unsupported family emojis with skin tones
@@ -247,7 +255,6 @@ def getListOfSingleAttributeValuesForEmojiList(emoji_list, single_attribute):
         attribute_to_check = single_attribute
     else:
         return []
-        
     if attribute_to_check in attributes_list:
         new_emoji_list = ''
         if type(emoji_list)==list:
@@ -258,10 +265,10 @@ def getListOfSingleAttributeValuesForEmojiList(emoji_list, single_attribute):
         if type(new_emoji_list)==list:
             list_of_values_for_attribute = []
             for e in new_emoji_list:
-                e_value = ''
-                try:
-                    e_value = getAttributesForSingleEmoji(e)[attribute_to_check]
-                except:
+                e_attributes = getAttributesForSingleEmoji(e)
+                if e_attributes != {}:
+                    e_value = e_attributes[attribute_to_check]
+                else:
                     e_value = ''
                 if e_value != '':
                     list_of_values_for_attribute.append(e_value)
